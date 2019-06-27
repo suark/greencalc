@@ -1,0 +1,3 @@
+rootProject.name = 'greenCalc'
+
+include ':app'
