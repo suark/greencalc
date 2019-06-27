@@ -5,4 +5,5 @@ Components
   [] Input display
 
 Utils
- []
+ [x] Convert heximal string to decimal number
+ [x] Convert decimal number to heximal string
