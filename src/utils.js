@@ -7,6 +7,10 @@ export const convertHeximalToDecimal = (input: string): number => {
     return 0
   }
 
+  if (length === 1) {
+    return parseInt(input)
+  }
+
   const firstDigit = parseInt(input[0])
   let total = firstDigit * BASE
 

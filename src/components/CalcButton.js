@@ -1,26 +1,29 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, Button } from 'react-native'
+import { StyleSheet, Button, View } from 'react-native'
 
 type Props = {
   symbol: string,
-  onPress: (any) => void,
+  onPress: (symbol: string) => void,
 }
 
-export default class CalcButton extends Component<Props> {
+export class CalcButton extends Component<Props> {
+  _onPress = () => {
+    this.props.onPress(this.props.symbol)
+  }
+
   render() {
     return (
-      <Button
-        onPress={this.props.onPress}
-        title={this.props.symbol}
-        // accessibilityLabel
-        // color
-        // disabled
-        // testID
-        // hasTVPreferredFocus
-      />
+      <View style={styles.button}>
+        <Button onPress={this._onPress} title={this.props.symbol} />
+      </View>
     )
   }
 }
 
-// const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  button: {
+    marginTop: 32,
+    width: 80,
+  },
+})
