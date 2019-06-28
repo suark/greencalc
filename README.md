@@ -1,4 +1,4 @@
-Green Calc
+# Green Calc
 
 In a Galaxy far, far away on a planet called Sam lives a species called Sung that is very
 different from humans. They only have 3 fingers instead of 5. As a result, they use different
@@ -6,12 +6,14 @@ numerical system than inhabitants of planet Earth. Sungs only recognize shades o
 and are very keen on seeing your solution for a base 6 calculator implemented using React
 Native technology.
 
-Breakdown
+### Breakdown
+
 1: "They only have 3 fingers instead of 5"
 2: "only recognize shades of green"
 3: "base 6 calculator"
 
-Analysis:
+### Analysis:
+
 1. Assumption: The user has 3 literal fingers, so no thumb.
 2. Assumption: All colors used must be some recongnizable shade of green.
 3. Assumption: Numbers are entered in base6 and always viewed in base6.
@@ -24,9 +26,11 @@ In order to combine my assumptions and the requirements, I'm going to do this in
 - It will handle negative Numbers
 - Will handle order of operations, left to right BEDMAS
 
-To Use:
+### To Use:
+
 1. npm install
 2. react-native run-ios or react-native run-android
 
-To Test:
+### To Test:
+
 1. npm run jest
