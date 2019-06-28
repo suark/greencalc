@@ -1,10 +1,10 @@
 # Green Calc
 
-In a Galaxy far, far away on a planet called Sam lives a species called Sung that is very
+"In a Galaxy far, far away on a planet called Sam lives a species called Sung that is very
 different from humans. They only have 3 fingers instead of 5. As a result, they use different
 numerical system than inhabitants of planet Earth. Sungs only recognize shades of green
 and are very keen on seeing your solution for a base 6 calculator implemented using React
-Native technology.
+Native technology."
 
 ### Breakdown
 
@@ -34,7 +34,7 @@ In order to combine my assumptions and the requirements, I'm going to do this in
 
 ### To Test:
 
-1. `npm run jest`
+1. `npm run test`
 
 ### Result
 <img src="https://github.com/suark/greencalc/blob/master/iOSScreenshot.png" width="300px">
