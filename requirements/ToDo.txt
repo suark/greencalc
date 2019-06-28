@@ -20,3 +20,7 @@ Styles
   [x] colors only green
   [x] flex to screen size
   [x] handle portrait and landscape
+
+Unit Testing
+ [x] components render
+ [x] utils

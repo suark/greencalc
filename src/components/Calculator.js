@@ -162,6 +162,7 @@ export class Calculator extends Component<Props, State> {
       this.setState((state) => ({
         valueToDisplay: operationArray[0],
         operationArray: [],
+        justEvaluated: true,
       }))
     } else {
       if (currentHeximal !== '') {
@@ -185,6 +186,7 @@ export class Calculator extends Component<Props, State> {
         currentHeximal: result,
         valueToDisplay: result,
         operationArray: [],
+        justEvaluated: true,
       }))
     }
   }
