@@ -15,7 +15,7 @@ export default class App extends Component<Props, State> {
     this.state = {
       isPortrait: height > width
     }
-
+    // We want to constantly watch for dimension changes because a few styles will be based on orientation
     Dimensions.addEventListener('change', this.handleDimensionChange)
   }
 

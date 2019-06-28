@@ -36,29 +36,36 @@ type Props = {
   isPortrait: boolean,
 }
 type State = {
-  currentHeximal: string,
-  valueToDisplay: string,
-  operationArray: Array<string>,
-  justEvaluated: boolean,
+  currentHeximal: string, // Used to represent the number the user is currently typing in
+  valueToDisplay: string, // Used to represent anything we might want to display on the screen
+  operationArray: Array<string>, // An array of numbers and operators that represents the equation
+  justEvaluated: boolean, // Signals that our last equation was calculated so we can start a new one
+}
+
+const initialState = {
+  currentHeximal: '',
+  valueToDisplay: '0',
+  operationArray: [],
+  justEvaluated: false,
 }
 export class Calculator extends Component<Props, State> {
-  state = {
-    currentHeximal: '',
-    valueToDisplay: '0',
-    operationArray: [],
-    justEvaluated: false,
-  }
+  state = initialState
 
+  /**
+   * Receives the number that was pressed and adds it to our current heximal value.
+   */
   numberPressed = (input: string) => {
     this.setState((state) => {
       const { currentHeximal, operationArray, justEvaluated } = state
       let newHeximal
+      // If we had just evaluated the equation then the next number typed should start everything over
       if (justEvaluated) {
         newHeximal = input
       } else {
+        // The check for a '0' makes sure you can't type things like '04'
         newHeximal = currentHeximal === '0' ? `${input}` : `${currentHeximal}${input}`
       }
-      const operationString = `${operationArray.join(' ')}`
+      const operationString = operationArray.join(' ')
       return {
         currentHeximal: newHeximal,
         valueToDisplay: `${operationString} ${newHeximal}`,
@@ -67,6 +74,9 @@ export class Calculator extends Component<Props, State> {
     })
   }
 
+  /**
+   * Receives the operator pressed and adds it, and the current heximal value, to the equation
+   */
   operatorPressed = (symbol: string) => {
     if (this.state.currentHeximal !== '') {
       this.setState((state) => {
@@ -74,24 +84,27 @@ export class Calculator extends Component<Props, State> {
         operationArray.push(currentHeximal)
         operationArray.push(symbol)
         return {
-          currentHeximal: '',
+          ...initialState,
           operationArray,
           valueToDisplay: operationArray.join(' '),
-          justEvaluated: false,
         }
       })
     }
   }
 
+  /**
+   * Sets the calculator back to a blank initial state
+   */
   clear = () => {
     this.setState(() => ({
-      currentHeximal: '',
-      valueToDisplay: '0',
+      ...initialState,
       operationArray: [],
-      justEvaluated: false,
     }))
   }
 
+  /**
+   * If the user tried to divide by zero, we reset everything and show the result as infinity
+   */
   handleDivideByZero = () => {
     this.setState(() => ({
       currentHeximal: '',
@@ -102,7 +115,7 @@ export class Calculator extends Component<Props, State> {
   }
 
   /**
-   * Recursive to reduce an array of numbers and operations into a single number
+   * Recursive function: Reduces an array of numbers and operations into a single number
    */
   BEDMAS = (operationArray: Array<string>): Array<string> => {
     if (operationArray.length <= 1) {
@@ -121,17 +134,18 @@ export class Calculator extends Component<Props, State> {
           if (symbol === currentOperator) {
             nextOperation.index = j
             nextOperation.symbol = symbol
+            // Once we found the next operator we want to compute, we break early from the looping
             break
           }
         }
         if (nextOperation.index) {
-          // Once we found the next operator we want to computer, we break early from the looping
+          // Once we found the next operator we want to compute, we break early from the looping
           break
         }
       }
 
-      // Now we use the information found about what our next operation should be in order
-      // to computer and remove that operation from the mix
+      // Now we use the information found about what our next operation should be, in order
+      // to compute and remove that operation from the mix
       const left = convertHeximalToDecimal(operationArray[nextOperation.index - 1])
       const right = convertHeximalToDecimal(operationArray[nextOperation.index + 1])
       // Now, based on our symbol, we do some math in decimal
@@ -153,36 +167,37 @@ export class Calculator extends Component<Props, State> {
           }
           break
       }
-      // Then we convert the result back to heximal and splice it into the array so we repeat this process recursively.
+      // Then we convert the result back to heximal and splice it into the array so we can repeat this process recursively.
+      // Eventually all operators are stripped away and we have a single number
       operationArray.splice(nextOperation.index - 1, 3, convertDecimalToHeximal(newValue))
       return this.BEDMAS(operationArray)
     }
   }
 
-  // Go through our operationArray and calculate the actual result of the whole thing
+  /**
+   * Go through our operationArray and calculate the actual result of the whole thing.
+   */
   evaluate = () => {
     const { operationArray, currentHeximal } = this.state
+
     if (operationArray.length === 0) {
-      if (currentHeximal !== '') {
-        this.setState((state) => {
-          return {
-            operationArray: [],
-          }
-        })
-      } else {
-        this.clear()
-      }
+      // There is nothing to compute
+      return
     } else if (operationArray.length === 1) {
+      // There is only one value, this should never happen.
       this.setState((state) => ({
         valueToDisplay: operationArray[0],
         operationArray: [],
         justEvaluated: true,
       }))
     } else {
+      // Otherwise, push our last number into the array and start evaluating
       if (currentHeximal !== '') {
         operationArray.push(currentHeximal)
       }
 
+      // This is just done in case the user ended the equation with an operation.
+      // That operation will have nothing to act on, so we just strip it.
       const lastSymbol = operationArray[operationArray.length - 1]
       switch (lastSymbol) {
         case OPERATORS.add:
@@ -193,6 +208,7 @@ export class Calculator extends Component<Props, State> {
           break
         }
       }
+      // Now we reduce our equation to a single value, change to string, and use it.
       const newValue = this.BEDMAS(operationArray)
       const result = newValue.toString()
       if (result === NUMBERS.infinity) {
@@ -210,6 +226,8 @@ export class Calculator extends Component<Props, State> {
   }
 
   render() {
+    // In landscape mode we reduce the padding in the button area because the buttons
+    // will also be reducing their margin to help look better in that mode.
     const { isPortrait } = this.props
     const padding = isPortrait ? 0 : SIZES.commonSpacing / 2
     const buttonArea = {
@@ -235,23 +253,11 @@ export class Calculator extends Component<Props, State> {
           <View style={styles.buttonRow}>
             <CalcButton symbol={OPERATORS.clear} onPress={this.clear} isPortrait={isPortrait} />
             <CalcButton symbol={OPERATORS.add} onPress={this.operatorPressed} isPortrait={isPortrait} />
-            <CalcButton
-              symbol={OPERATORS.subtract}
-              onPress={this.operatorPressed}
-              isPortrait={isPortrait}
-            />
+            <CalcButton symbol={OPERATORS.subtract} onPress={this.operatorPressed} isPortrait={isPortrait} />
           </View>
           <View style={styles.buttonRow}>
-            <CalcButton
-              symbol={OPERATORS.evaluate}
-              onPress={this.evaluate}
-              isPortrait={isPortrait}
-            />
-            <CalcButton
-              symbol={OPERATORS.multiply}
-              onPress={this.operatorPressed}
-              isPortrait={isPortrait}
-            />
+            <CalcButton symbol={OPERATORS.evaluate} onPress={this.evaluate} isPortrait={isPortrait} />
+            <CalcButton symbol={OPERATORS.multiply} onPress={this.operatorPressed} isPortrait={isPortrait} />
             <CalcButton symbol={OPERATORS.divide} onPress={this.operatorPressed} isPortrait={isPortrait} />
           </View>
         </View>

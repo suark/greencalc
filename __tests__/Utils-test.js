@@ -20,10 +20,18 @@ it('converts a negative decimal number to heximal', () => {
 })
 
 it('works when integrated together', () => {
-  for (let index = -10; index <= 10; index++) {
+  for (let index = -100; index <= 100; index++) {
     const heximal = convertDecimalToHeximal(index)
     const integrated = convertHeximalToDecimal(heximal)
     expect(integrated).toBe(index)
   }
 })
 
+it('works when integrated together, including decimals', () => {
+  for (let index = 10; index >= -10; index = index - 0.1) {
+    const value = parseFloat(index.toFixed(1))
+    const heximal = convertDecimalToHeximal(value)
+    const integrated = convertHeximalToDecimal(heximal)
+    expect(integrated).toBe(value)
+  }
+})
