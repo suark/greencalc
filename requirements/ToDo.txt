@@ -1,0 +1,26 @@
+Components
+  [x] Button
+  [x] Button area
+  [x] Output display
+  [x] Input display
+
+Utils
+  [x] Convert heximal string to decimal number
+  [x] Convert decimal number to heximal string
+
+Functionality
+  [x] addition
+  [x] subtraction
+  [x] multiplication
+  [x] division
+  [x] order of operations
+  [x] decimal's removed, math behaves like signed integer arithmetic
+
+Styles
+  [x] colors only green
+  [x] flex to screen size
+  [x] handle portrait and landscape
+
+Unit Testing
+ [x] components render
+ [x] utils
