@@ -37,4 +37,4 @@ In order to combine my assumptions and the requirements, I'm going to do this in
 1. `npm run jest`
 
 ### Result
-![image of green calculator](https://github.com/suark/greencalc/blob/master/screenshot.png)
+<img src="https://github.com/suark/greencalc/blob/master/screenshot.png" width="300px">
