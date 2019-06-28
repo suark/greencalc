@@ -146,7 +146,6 @@ export class Calculator extends Component<Props, State> {
           newValue = left * right
           break
         case OPERATORS.divide:
-          console.log(left, right)
           if (right === 0) {
             return ['Infinity']
           } else {
@@ -211,7 +210,6 @@ export class Calculator extends Component<Props, State> {
   }
 
   render() {
-    console.log(this.state)
     const { isPortrait } = this.props
     const padding = isPortrait ? 0 : SIZES.commonSpacing / 2
     const buttonArea = {
