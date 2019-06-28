@@ -22,7 +22,7 @@ In order to combine my assumptions and the requirements, I'm going to do this in
 - All colors will be shades of green
 - Numbers will appear only in heximal form
 - I'll assume the user holds their three fingers over the screen and presses all the buttons in the left column with left finger, middle column - middle finger, and right column - right finger
-- I didn't allow for fractional math because it was harder and I didn't think it was needed in the scope of this project, so any time a number results in a fraction, the fractional part is simply truncated away
+- It works with fractions
 - It will handle negative Numbers
 - Will handle order of operations, left to right BEDMAS
 - If you divide by 0, the result is Infinity
