@@ -35,3 +35,6 @@ In order to combine my assumptions and the requirements, I'm going to do this in
 ### To Test:
 
 1. `npm run jest`
+
+### Result
+![image of green calculator](https://github.com/suark/greencalc/blob/master/screenshot.png)
