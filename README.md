@@ -37,5 +37,5 @@ In order to combine my assumptions and the requirements, I'm going to do this in
 1. `npm run jest`
 
 ### Result
-<img src="https://github.com/suark/greencalc/blob/master/iosScreenshot.png" width="300px">
+<img src="https://github.com/suark/greencalc/blob/master/iOSScreenshot.png" width="300px">
 <img src="https://github.com/suark/greencalc/blob/master/androidScreenshot.png" width="300px">
