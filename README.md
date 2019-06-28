@@ -8,9 +8,9 @@ Native technology.
 
 ### Breakdown
 
-1: "They only have 3 fingers instead of 5"
-2: "only recognize shades of green"
-3: "base 6 calculator"
+1. "They only have 3 fingers instead of 5"
+2. "only recognize shades of green"
+3. "base 6 calculator"
 
 ### Analysis:
 
