@@ -2,39 +2,60 @@
 const BASE = 6
 
 export const convertHeximalToDecimal = (input: string): number => {
-  const length = input.length
-  if (length === 0) {
+  if (input.length === 0) {
     return 0
   }
 
-  if (length === 1) {
-    return parseInt(input)
+  const isNegative = input[0] === '-'
+  if (isNegative) {
+    input = input.substr(1)
+  }
+
+  if (input.length === 1) {
+    return isNegative ? -(parseInt(input)) : parseInt(input)
   }
 
   const firstDigit = parseInt(input[0])
   let total = firstDigit * BASE
 
-  if (length > 1) {
+  if (input.length > 1) {
     for (let index = 1; index < input.length; index++) {
       const nextDigit = parseInt(input[index])
       total += nextDigit
-      if (index < length - 1) {
+      if (index < input.length - 1) {
         total *= BASE
       }
     }
   }
 
-  return total
+  return isNegative ? -(total) : total
 }
 
-export const convertDecimalToHeximal = (input: number): string => {
+const convertDecimalToHeximalRecursive = (input: number): string => {
+  const isNegative = input < 0
+  if (isNegative) {
+    input = -(input)
+  }
   if (input === 0) {
     return '0'
   } else {
-    let remainder = input % BASE
+    const remainder = input % BASE
     return (
-      convertDecimalToHeximal(parseInt((input - remainder) / BASE)) +
-      remainder.toString()
+      `${isNegative ? '-' : ''}${convertDecimalToHeximalRecursive(parseInt((input - remainder) / BASE)) +
+      remainder.toString()}`
     )
+  }
+}
+
+export const convertDecimalToHeximal = (input: number): string => {
+  // Removes any fractional portion of the input number
+  // This is done to simplify the project a little
+  const result = convertDecimalToHeximalRecursive(Math.trunc(input))
+  if (result.length > 1 && result[0] === '0') {
+    return result.substr(1)
+  } else if (result.length > 2 && result[0] === '-' && result[1] === '0') {
+    return `-${result.substr(2)}`
+  } else {
+    return result
   }
 }
