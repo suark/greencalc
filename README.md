@@ -25,6 +25,7 @@ In order to combine my assumptions and the requirements, I'm going to do this in
 - I didn't allow for fractional math because it was harder and I didn't think it was needed in the scope of this project, so any time a number results in a fraction, the fractional part is simply truncated away
 - It will handle negative Numbers
 - Will handle order of operations, left to right BEDMAS
+- If you divide by 0, the result is Infinity
 
 ### To Use:
 

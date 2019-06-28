@@ -38,7 +38,7 @@ type State = {
   currentHeximal: string,
   valueToDisplay: string,
   operationArray: Array<string>,
-  justEvaluated: false,
+  justEvaluated: boolean,
 }
 export class Calculator extends Component<Props, State> {
   state = {
@@ -91,10 +91,19 @@ export class Calculator extends Component<Props, State> {
     }))
   }
 
+  handleDivideByZero = () => {
+    this.setState(() => ({
+      currentHeximal: '',
+      operationArray: [],
+      justEvaluated: false,
+    }))
+  }
+
   /**
    * Recursive to reduce an array of numbers and operations into a single number
    */
   BEDMAS = (operationArray: Array<string>): Array<string> => {
+    console.log('ree', operationArray)
     if (operationArray.length <= 1) {
       // Base case
       return operationArray
@@ -136,7 +145,14 @@ export class Calculator extends Component<Props, State> {
           newValue = left * right
           break
         case OPERATORS.divide:
-          newValue = left / right
+          console.log(left, right)
+          if (right === 0) {
+            // divide by 0 attempted
+            this.handleDivideByZero()
+            return ['Infinity']
+          } else {
+            newValue = left / right
+          }
           break
       }
       // Then we convert the result back to heximal and splice it into the array so we repeat this process recursively.
@@ -192,6 +208,7 @@ export class Calculator extends Component<Props, State> {
   }
 
   render() {
+    console.log(this.state)
     const { isPortrait } = this.props
     const padding = isPortrait ? 0 : SIZES.commonSpacing / 2
     const buttonArea = {
