@@ -28,9 +28,9 @@ In order to combine my assumptions and the requirements, I'm going to do this in
 
 ### To Use:
 
-1. npm install
-2. react-native run-ios or react-native run-android
+1. `npm install`
+2. `react-native run-ios or` `react-native run-android`
 
 ### To Test:
 
-1. npm run jest
+1. `npm run jest`
